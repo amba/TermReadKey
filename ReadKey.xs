@@ -1618,6 +1618,9 @@ again:
     }
 
 	if (delay > 0) {
+		if (delay > ULONG_MAX / 1000) {
+			croak("delay argument overflows the DWORD type");
+		}
 		if (WaitForSingleObject(whnd, delay * 1000) != WAIT_OBJECT_0)
 		{
 			return FALSE;
